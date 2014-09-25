@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements OnNewItemAddedListener {
 
 	private OnNewItemAddedListener onNewItemAddedListener;
 	
@@ -60,11 +60,10 @@ public class MainActivity extends ActionBarActivity {
 			}
 		}); */
 		
-		//get references of Fragment
-		FragmentManager frm = getFragmentManager();
+		//get references to the Fragment
+		FragmentManager fm = getSupportFragmentManager();
 		
-		ToDoListFragment todoListFragment =
-				fm.findFragmentById(R.id.TodoListFragment);
+		ToDoListFragment todoListFragment = (ToDoListFragment)fm.findFragmentById(R.id.TodoListFragment);
 		
 		// create ArrayList of ToDo Item.
 		todoItems = new ArrayList<String>();
@@ -96,5 +95,13 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onNewItemAdded(String newItem)
+	{
+		// TODO Auto-generated method stub
+		todoItems.add(newItem);
+		aa.notifyDataSetChanged();
 	}
 }
